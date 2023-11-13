@@ -9,7 +9,6 @@ router = APIRouter(
     prefix="/posts",
     tags=['Posts']
 )
-models.Base.metadata.create_all(bind=engine)
 
 #Get all posts
 # @router.get('/', response_model=List[schemas.ResponsePost])

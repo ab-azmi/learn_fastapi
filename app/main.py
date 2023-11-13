@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from app import models
 from app.routers import user, post, auth, vote
 import uvicorn
 from app.config import settings
+from app.database import engine
+
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

@@ -7,7 +7,6 @@ router = APIRouter(
     prefix="/users",
     tags=['Users']
 )
-models.Base.metadata.create_all(bind=engine)
 
 #Register a user
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.ResponseUser)
