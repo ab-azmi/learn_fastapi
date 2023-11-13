@@ -3,20 +3,7 @@ from pydantic import BaseModel, EmailStr
 from datetime import datetime
 from typing import Optional
 
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool=True
-    
-
-class ResponsePost(Post):
-    id: int
-    created_at: datetime
-    owner_id: int
-
-    #turn model into dict
-    class Config:
-        from_attributes = True
+from pydantic.types import conint
 
 class User(BaseModel):
     id: int
@@ -36,6 +23,24 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+class Post(BaseModel):
+    title: str
+    content: str
+    published: bool=True
+
+class ResponsePost(Post):
+    id: int
+    created_at: datetime
+    owner_id: int
+    owner: ResponseUser
+
+    #turn model into dict
+    class Config:
+        from_attributes = True
+
+class PostVote(BaseModel):
+    Post: ResponsePost
+    votes: int
 
 class Token(BaseModel):
     token: str
@@ -43,3 +48,8 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[int] = None
+
+
+class Vote(BaseModel):
+    post_id: int
+    dir: conint(ge=0, le=1)
